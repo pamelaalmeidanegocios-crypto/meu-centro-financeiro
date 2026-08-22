@@ -35,6 +35,9 @@
         <button class="menu" onclick="mostrarPagina('metas')">
           🎯 Metas
         </button>
+        <button class="menu" onclick="mostrarPagina('cartoes')">
+  💳 Cartões
+</button>
       </nav>
 
       <div class="dica">
@@ -587,6 +590,160 @@
         Criar minha meta
       </button>
 
+
+    </form>
+
+  </div>
+
+</div>
+  <!-- CARTÕES -->
+
+<section id="cartoes" class="pagina">
+
+  <div class="painel">
+
+    <div class="painel-titulo">
+
+      <div>
+
+        <h2>💳 Meus cartões</h2>
+
+        <p>
+          Acompanhe seus limites e utilização.
+        </p>
+
+      </div>
+
+      <button
+        class="botao-principal"
+        onclick="abrirCartao()"
+      >
+        + Novo cartão
+      </button>
+
+    </div>
+
+
+    <div id="listaCartoes">
+
+      <div class="meta-vazia">
+
+        <div>💳</div>
+
+        <h3>
+          Nenhum cartão cadastrado
+        </h3>
+
+        <p>
+          Cadastre seu primeiro cartão para
+          acompanhar seus gastos.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+  <!-- MODAL DE CARTÃO -->
+
+<div id="modalCartao" class="modal">
+
+  <div class="modal-conteudo">
+
+    <button
+      class="fechar"
+      onclick="fecharCartao()"
+    >
+      ×
+    </button>
+
+    <h2>💳 Novo cartão</h2>
+
+    <p>
+      Cadastre seu cartão para acompanhar
+      o limite e a fatura.
+    </p>
+
+
+    <form onsubmit="salvarCartao(event)">
+
+      <label>
+        Nome do cartão
+      </label>
+
+      <input
+        id="nomeCartao"
+        type="text"
+        placeholder="Ex.: Nubank"
+        required
+      >
+
+
+      <label>
+        Limite do cartão
+      </label>
+
+      <input
+        id="limiteCartao"
+        type="number"
+        step="0.01"
+        min="0"
+        placeholder="5000"
+        required
+      >
+
+
+      <label>
+        Valor já utilizado
+      </label>
+
+      <input
+        id="utilizadoCartao"
+        type="number"
+        step="0.01"
+        min="0"
+        placeholder="0"
+        value="0"
+        required
+      >
+
+
+      <label>
+        Dia do fechamento
+      </label>
+
+      <input
+        id="fechamentoCartao"
+        type="number"
+        min="1"
+        max="31"
+        placeholder="10"
+        required
+      >
+
+
+      <label>
+        Dia do vencimento
+      </label>
+
+      <input
+        id="vencimentoCartao"
+        type="number"
+        min="1"
+        max="31"
+        placeholder="17"
+        required
+      >
+
+
+      <button
+        class="botao-principal salvar"
+        type="submit"
+      >
+        Cadastrar cartão
+      </button>
 
     </form>
 
@@ -1511,6 +1668,408 @@ document.addEventListener(
   () => {
 
     atualizarMetas();
+
+  }
+);
+    // =========================
+// CARTÕES V4
+// =========================
+
+let cartoes = JSON.parse(
+  localStorage.getItem("cartoesFinanceiros")
+) || [];
+
+
+// Abrir formulário
+
+function abrirCartao() {
+
+  document
+    .getElementById("modalCartao")
+    .classList.add("aberto");
+
+}
+
+
+// Fechar formulário
+
+function fecharCartao() {
+
+  document
+    .getElementById("modalCartao")
+    .classList.remove("aberto");
+
+}
+
+
+// Salvar cartão
+
+function salvarCartao(event) {
+
+  event.preventDefault();
+
+
+  const nome =
+    document.getElementById(
+      "nomeCartao"
+    ).value.trim();
+
+
+  const limite =
+    Number(
+      document.getElementById(
+        "limiteCartao"
+      ).value
+    );
+
+
+  const utilizado =
+    Number(
+      document.getElementById(
+        "utilizadoCartao"
+      ).value
+    );
+
+
+  const fechamento =
+    Number(
+      document.getElementById(
+        "fechamentoCartao"
+      ).value
+    );
+
+
+  const vencimento =
+    Number(
+      document.getElementById(
+        "vencimentoCartao"
+      ).value
+    );
+
+
+  if (!nome || limite <= 0) {
+
+    alert(
+      "Informe o nome e o limite do cartão."
+    );
+
+    return;
+
+  }
+
+
+  if (utilizado > limite) {
+
+    alert(
+      "O valor utilizado não pode ser maior que o limite."
+    );
+
+    return;
+
+  }
+
+
+  const novoCartao = {
+
+    id: Date.now(),
+
+    nome: nome,
+
+    limite: limite,
+
+    utilizado: utilizado,
+
+    fechamento: fechamento,
+
+    vencimento: vencimento
+
+  };
+
+
+  cartoes.push(novoCartao);
+
+
+  salvarCartoes();
+
+
+  document
+    .querySelector("#modalCartao form")
+    .reset();
+
+
+  document.getElementById(
+    "utilizadoCartao"
+  ).value = 0;
+
+
+  fecharCartao();
+
+
+  atualizarCartoes();
+
+}
+
+
+// Salvar cartões
+
+function salvarCartoes() {
+
+  localStorage.setItem(
+    "cartoesFinanceiros",
+    JSON.stringify(cartoes)
+  );
+
+}
+
+
+// Atualizar cartões na tela
+
+function atualizarCartoes() {
+
+  const lista =
+    document.getElementById(
+      "listaCartoes"
+    );
+
+
+  if (!lista) {
+    return;
+  }
+
+
+  if (!cartoes.length) {
+
+    lista.innerHTML = `
+
+      <div class="meta-vazia">
+
+        <div>💳</div>
+
+        <h3>
+          Nenhum cartão cadastrado
+        </h3>
+
+        <p>
+          Cadastre seu primeiro cartão para
+          acompanhar seus gastos.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  lista.innerHTML =
+    cartoes.map(cartao => {
+
+      const percentual =
+        cartao.limite > 0
+          ? (
+              cartao.utilizado /
+              cartao.limite
+            ) * 100
+          : 0;
+
+
+      const percentualSeguro =
+        Math.min(
+          percentual,
+          100
+        );
+
+
+      const disponivel =
+        Math.max(
+          cartao.limite -
+          cartao.utilizado,
+          0
+        );
+
+
+      let classe = "";
+
+      if (percentual >= 90) {
+
+        classe = "limite-perigo";
+
+      } else if (percentual >= 70) {
+
+        classe = "limite-atencao";
+
+      }
+
+
+      return `
+
+        <div class="painel cartao-card">
+
+          <div class="cartao-topo">
+
+            <div>
+
+              <span class="cartao-chip">
+                💳
+              </span>
+
+              <div>
+
+                <h2>
+                  ${cartao.nome}
+                </h2>
+
+                <p>
+                  Cartão de crédito
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="cartao-limite">
+
+            <span>
+              Limite disponível
+            </span>
+
+            <strong>
+              ${formatarMoeda(disponivel)}
+            </strong>
+
+          </div>
+
+
+          <div class="cartao-valores">
+
+            <span>
+              Utilizado:
+              <strong>
+                ${formatarMoeda(cartao.utilizado)}
+              </strong>
+            </span>
+
+            <span>
+              ${percentualSeguro.toFixed(1)}%
+            </span>
+
+          </div>
+
+
+          <div class="barra-cartao">
+
+            <div
+              class="barra-cartao-progresso ${classe}"
+              style="width: ${percentualSeguro}%"
+            ></div>
+
+          </div>
+
+
+          <div class="cartao-info">
+
+            <span>
+              📅 Fecha dia
+              <strong>
+                ${cartao.fechamento}
+              </strong>
+            </span>
+
+            <span>
+              💰 Vence dia
+              <strong>
+                ${cartao.vencimento}
+              </strong>
+            </span>
+
+          </div>
+
+
+          <div class="cartao-acoes">
+
+            <button
+              class="botao-link"
+              onclick="adicionarUsoCartao(${cartao.id})"
+            >
+              + Registrar gasto
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+// Registrar gasto no cartão
+
+function adicionarUsoCartao(id) {
+
+  const cartao =
+    cartoes.find(
+      item =>
+        item.id === id
+    );
+
+
+  if (!cartao) {
+    return;
+  }
+
+
+  const valor =
+    Number(
+      prompt(
+        "Digite o valor da nova compra:"
+      )
+    );
+
+
+  if (!valor || valor <= 0) {
+    return;
+  }
+
+
+  if (
+    cartao.utilizado + valor >
+    cartao.limite
+  ) {
+
+    alert(
+      "Essa compra ultrapassaria o limite disponível."
+    );
+
+    return;
+
+  }
+
+
+  cartao.utilizado += valor;
+
+
+  salvarCartoes();
+
+  atualizarCartoes();
+
+}
+
+
+// Atualizar cartões ao abrir o site
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    atualizarCartoes();
 
   }
 );
