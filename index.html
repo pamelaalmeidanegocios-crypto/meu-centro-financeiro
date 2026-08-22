@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Meu Centro Financeiro</title>
 
   <link rel="stylesheet" href="css/style.css">
@@ -11,249 +10,497 @@
 
 <body>
 
-  <header class="topo">
+  <div class="app">
 
-    <div>
-      <h1>💰 Meu Centro Financeiro</h1>
-      <p>Organize seu dinheiro de forma simples.</p>
-    </div>
+    <aside class="sidebar">
 
-    <button onclick="abrirFormulario()">
-      + Novo lançamento
-    </button>
+      <div class="logo">
+        <div class="logo-icon">$</div>
 
-  </header>
-
-
-  <main>
-
-    <!-- ============================= -->
-    <!-- RESUMO FINANCEIRO -->
-    <!-- ============================= -->
-
-    <section class="resumo">
-
-      <div class="card">
-
-        <span>Saldo</span>
-
-        <strong id="saldo">
-          R$ 0,00
-        </strong>
-
+        <div>
+          <strong>Meu Centro</strong>
+          <span>Financeiro</span>
+        </div>
       </div>
 
+      <nav>
+        <button class="menu active" onclick="mostrarPagina('dashboard')">
+          🏠 Dashboard
+        </button>
 
-      <div class="card receita">
+        <button class="menu" onclick="mostrarPagina('lancamentos')">
+          💸 Lançamentos
+        </button>
 
-        <span>Receitas</span>
+        <button class="menu" onclick="mostrarPagina('metas')">
+          🎯 Metas
+        </button>
+      </nav>
 
-        <strong id="receitas">
-          R$ 0,00
-        </strong>
-
+      <div class="dica">
+        💡
+        <p>
+          Pequenas decisões hoje constroem
+          uma vida financeira mais leve amanhã.
+        </p>
       </div>
 
-
-      <div class="card despesa">
-
-        <span>Despesas</span>
-
-        <strong id="despesas">
-          R$ 0,00
-        </strong>
-
-      </div>
-
-    </section>
+    </aside>
 
 
-    <!-- ============================= -->
-    <!-- FORMULÁRIO -->
-    <!-- ============================= -->
+    <main class="conteudo">
 
-    <section
-      id="formulario"
-      class="formulario"
-      style="display:none;"
-    >
+      <header class="cabecalho">
+
+        <div>
+          <span class="subtitulo">
+            SEU DINHEIRO SOB CONTROLE
+          </span>
+
+          <h1 id="tituloPagina">
+            Dashboard
+          </h1>
+        </div>
+
+        <button
+          class="botao-principal"
+          onclick="abrirFormulario()"
+        >
+          + Novo lançamento
+        </button>
+
+      </header>
+
+
+      <!-- DASHBOARD -->
+
+      <section id="dashboard" class="pagina ativa">
+
+        <div class="seletor-mes">
+
+          <button onclick="mesAnterior()">‹</button>
+
+          <strong id="mesAtual">
+            Agosto 2026
+          </strong>
+
+          <button onclick="proximoMes()">›</button>
+
+        </div>
+
+
+        <section class="cards">
+
+          <div class="card saldo-card">
+
+            <span>Saldo do mês</span>
+
+            <strong id="saldo">
+              R$ 0,00
+            </strong>
+
+            <small id="statusSaldo">
+              Seu saldo atual
+            </small>
+
+          </div>
+
+
+          <div class="card receita-card">
+
+            <span>Receitas</span>
+
+            <strong id="receitas">
+              R$ 0,00
+            </strong>
+
+            <small>Entradas</small>
+
+          </div>
+
+
+          <div class="card despesa-card">
+
+            <span>Despesas</span>
+
+            <strong id="despesas">
+              R$ 0,00
+            </strong>
+
+            <small>Saídas</small>
+
+          </div>
+
+
+          <div class="card economia-card">
+
+            <span>Economia</span>
+
+            <strong id="economia">
+              R$ 0,00
+            </strong>
+
+            <small id="percentualEconomia">
+              0% da receita
+            </small>
+
+          </div>
+
+        </section>
+
+
+        <section class="graficos">
+
+          <div class="painel">
+
+            <div class="painel-titulo">
+
+              <div>
+                <h2>Receitas x Despesas</h2>
+
+                <p>
+                  Visão financeira do mês
+                </p>
+              </div>
+
+            </div>
+
+            <div class="grafico">
+              <canvas id="graficoResumo"></canvas>
+            </div>
+
+          </div>
+
+
+          <div class="painel">
+
+            <div class="painel-titulo">
+
+              <div>
+                <h2>Gastos por categoria</h2>
+
+                <p>
+                  Onde seu dinheiro está indo
+                </p>
+              </div>
+
+            </div>
+
+            <div class="grafico">
+              <canvas id="graficoCategorias"></canvas>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <section class="painel">
+
+          <div class="painel-titulo">
+
+            <div>
+              <h2>Últimos lançamentos</h2>
+
+              <p>
+                Movimentações recentes
+              </p>
+            </div>
+
+            <button
+              class="botao-link"
+              onclick="mostrarPagina('lancamentos')"
+            >
+              Ver todos →
+            </button>
+
+          </div>
+
+
+          <div id="listaLancamentos">
+
+            <p class="vazio">
+              Nenhum lançamento neste mês.
+            </p>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- LANÇAMENTOS -->
+
+      <section id="lancamentos" class="pagina">
+
+        <div class="painel">
+
+          <div class="painel-titulo">
+
+            <div>
+              <h2>Lançamentos</h2>
+
+              <p>
+                Todas as suas movimentações
+              </p>
+            </div>
+
+            <button
+              class="botao-principal"
+              onclick="abrirFormulario()"
+            >
+              + Novo lançamento
+            </button>
+
+          </div>
+
+
+          <div id="listaCompleta">
+
+            <p class="vazio">
+              Nenhum lançamento cadastrado.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- METAS -->
+
+      <section id="metas" class="pagina">
+
+        <div class="painel">
+
+          <div class="painel-titulo">
+
+            <div>
+              <h2>🎯 Minhas metas</h2>
+
+              <p>
+                Seus objetivos financeiros
+              </p>
+            </div>
+
+            <button
+              class="botao-principal"
+              onclick="alert('A área de metas será ativada em breve!')"
+            >
+              + Nova meta
+            </button>
+
+          </div>
+
+
+          <div class="meta-vazia">
+
+            <div>🎯</div>
+
+            <h3>
+              Vamos definir sua primeira meta?
+            </h3>
+
+            <p>
+              Pode ser uma viagem, uma reserva
+              ou qualquer sonho.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- MODAL -->
+
+  <div id="modal" class="modal">
+
+    <div class="modal-conteudo">
+
+      <button
+        class="fechar"
+        onclick="fecharFormulario()"
+      >
+        ×
+      </button>
 
       <h2>Novo lançamento</h2>
+
+      <p>
+        Registre uma entrada ou saída.
+      </p>
 
 
       <form onsubmit="salvarFormulario(event)">
 
-        <label>
-          Tipo
-        </label>
+        <label>Tipo</label>
 
-        <select id="tipo" required>
+        <select id="tipo">
 
           <option value="receita">
-            Receita
+            💰 Receita
           </option>
 
           <option value="despesa">
-            Despesa
+            💸 Despesa
           </option>
 
         </select>
 
 
-        <label>
-          Descrição
-        </label>
+        <label>Descrição</label>
 
         <input
-          type="text"
           id="descricao"
+          type="text"
           placeholder="Ex.: Salário"
           required
         >
 
 
-        <label>
-          Valor
-        </label>
+        <label>Valor</label>
 
         <input
-          type="number"
           id="valor"
-          placeholder="0,00"
+          type="number"
           step="0.01"
           min="0"
+          placeholder="0,00"
           required
         >
 
 
-        <label>
-          Categoria
-        </label>
+        <label>Categoria</label>
 
-        <select id="categoria" required>
+        <select id="categoria">
 
-          <option value="Salário">
-            Salário
-          </option>
-
-          <option value="Alimentação">
-            Alimentação
-          </option>
-
-          <option value="Casa">
-            Casa
-          </option>
-
-          <option value="Transporte">
-            Transporte
-          </option>
-
-          <option value="Lazer">
-            Lazer
-          </option>
-
-          <option value="Compras">
-            Compras
-          </option>
-
-          <option value="Saúde">
-            Saúde
-          </option>
-
-          <option value="Educação">
-            Educação
-          </option>
-
-          <option value="Outros">
-            Outros
-          </option>
+          <option>Salário</option>
+          <option>Alimentação</option>
+          <option>Casa</option>
+          <option>Transporte</option>
+          <option>Lazer</option>
+          <option>Compras</option>
+          <option>Saúde</option>
+          <option>Educação</option>
+          <option>Assinaturas</option>
+          <option>Investimentos</option>
+          <option>Outros</option>
 
         </select>
 
 
-        <div class="botoes">
-
-          <button
-            type="submit"
-          >
-            Salvar lançamento
-          </button>
-
-
-          <button
-            type="button"
-            onclick="fecharFormulario()"
-          >
-            Cancelar
-          </button>
-
-        </div>
+        <button
+          class="botao-principal salvar"
+          type="submit"
+        >
+          Salvar lançamento
+        </button>
 
       </form>
 
-    </section>
+    </div>
+
+  </div>
 
 
-    <!-- ============================= -->
-    <!-- LANÇAMENTOS -->
-    <!-- ============================= -->
+  <!-- CHART.JS -->
 
-    <section class="lista">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-      <div class="titulo-lista">
-
-        <h2>
-          Últimos lançamentos
-        </h2>
-
-      </div>
-
-
-      <div id="listaLancamentos">
-
-        <p class="vazio">
-          Nenhum lançamento cadastrado ainda.
-        </p>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <footer>
-
-    <p>
-      Meu Centro Financeiro © 2026
-    </p>
-
-  </footer>
-
-
-  <!-- ============================= -->
-  <!-- JAVASCRIPT -->
-  <!-- ============================= -->
+  <!-- NOSSO JAVASCRIPT -->
 
   <script src="js/app.js"></script>
 
 
   <script>
 
+    let dataSelecionada = new Date();
+
+
+    function mostrarPagina(pagina) {
+
+      document
+        .querySelectorAll(".pagina")
+        .forEach(secao => {
+          secao.classList.remove("ativa");
+        });
+
+
+      document
+        .getElementById(pagina)
+        .classList.add("ativa");
+
+
+      document
+        .querySelectorAll(".menu")
+        .forEach(botao => {
+          botao.classList.remove("active");
+        });
+
+
+      const menus =
+        document.querySelectorAll(".menu");
+
+
+      if (pagina === "dashboard") {
+
+        menus[0].classList.add("active");
+
+        document.getElementById(
+          "tituloPagina"
+        ).textContent = "Dashboard";
+
+      }
+
+
+      if (pagina === "lancamentos") {
+
+        menus[1].classList.add("active");
+
+        document.getElementById(
+          "tituloPagina"
+        ).textContent = "Lançamentos";
+
+        atualizarListaCompleta();
+
+      }
+
+
+      if (pagina === "metas") {
+
+        menus[2].classList.add("active");
+
+        document.getElementById(
+          "tituloPagina"
+        ).textContent = "Metas";
+
+      }
+
+    }
+
+
     function abrirFormulario() {
 
-      document.getElementById(
-        "formulario"
-      ).style.display = "block";
+      document
+        .getElementById("modal")
+        .classList.add("aberto");
 
     }
 
 
     function fecharFormulario() {
 
-      document.getElementById(
-        "formulario"
-      ).style.display = "none";
+      document
+        .getElementById("modal")
+        .classList.remove("aberto");
 
     }
 
@@ -264,27 +511,16 @@
 
 
       const tipo =
-        document.getElementById(
-          "tipo"
-        ).value;
-
+        document.getElementById("tipo").value;
 
       const descricao =
-        document.getElementById(
-          "descricao"
-        ).value;
-
+        document.getElementById("descricao").value;
 
       const valor =
-        document.getElementById(
-          "valor"
-        ).value;
-
+        document.getElementById("valor").value;
 
       const categoria =
-        document.getElementById(
-          "categoria"
-        ).value;
+        document.getElementById("categoria").value;
 
 
       adicionarLancamento(
@@ -295,72 +531,220 @@
       );
 
 
-      document.querySelector(
-        "form"
-      ).reset();
+      document
+        .querySelector("#modal form")
+        .reset();
 
 
       fecharFormulario();
 
-      atualizarLista();
+      atualizarTudo();
 
     }
 
 
-    function atualizarLista() {
+    function mesAnterior() {
+
+      dataSelecionada.setMonth(
+        dataSelecionada.getMonth() - 1
+      );
+
+      atualizarTudo();
+
+    }
+
+
+    function proximoMes() {
+
+      dataSelecionada.setMonth(
+        dataSelecionada.getMonth() + 1
+      );
+
+      atualizarTudo();
+
+    }
+
+
+    function atualizarMes() {
+
+      const texto =
+        dataSelecionada.toLocaleDateString(
+          "pt-BR",
+          {
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+
+      document.getElementById(
+        "mesAtual"
+      ).textContent =
+        texto.charAt(0).toUpperCase()
+        + texto.slice(1);
+
+    }
+
+
+    function atualizarDashboard() {
+
+      const mes =
+        dataSelecionada.getMonth();
+
+      const ano =
+        dataSelecionada.getFullYear();
+
 
       const lista =
+        lancamentos.filter(item => {
+
+          const data =
+            new Date(item.data);
+
+          return (
+            data.getMonth() === mes &&
+            data.getFullYear() === ano
+          );
+
+        });
+
+
+      let receitas = 0;
+
+      let despesas = 0;
+
+
+      lista.forEach(item => {
+
+        const valor =
+          Number(item.valor);
+
+
+        if (item.tipo === "receita") {
+          receitas += valor;
+        } else {
+          despesas += valor;
+        }
+
+      });
+
+
+      const saldo =
+        receitas - despesas;
+
+
+      const economia =
+        saldo > 0 ? saldo : 0;
+
+
+      const percentual =
+        receitas > 0
+          ? (economia / receitas) * 100
+          : 0;
+
+
+      document.getElementById(
+        "saldo"
+      ).textContent =
+        formatarMoeda(saldo);
+
+
+      document.getElementById(
+        "receitas"
+      ).textContent =
+        formatarMoeda(receitas);
+
+
+      document.getElementById(
+        "despesas"
+      ).textContent =
+        formatarMoeda(despesas);
+
+
+      document.getElementById(
+        "economia"
+      ).textContent =
+        formatarMoeda(economia);
+
+
+      document.getElementById(
+        "percentualEconomia"
+      ).textContent =
+        percentual.toFixed(1)
+        + "% da receita";
+
+
+      document.getElementById(
+        "statusSaldo"
+      ).textContent =
+        saldo >= 0
+          ? "Você está no positivo 🎉"
+          : "Atenção aos gastos ⚠️";
+
+
+      atualizarLista(lista);
+
+      atualizarGraficos(
+        receitas,
+        despesas,
+        lista
+      );
+
+    }
+
+
+    function atualizarLista(lista) {
+
+      const elemento =
         document.getElementById(
           "listaLancamentos"
         );
 
 
-      if (
-        typeof lancamentos === "undefined" ||
-        lancamentos.length === 0
-      ) {
+      if (!lista.length) {
 
-        lista.innerHTML = `
-          <p class="vazio">
-            Nenhum lançamento cadastrado ainda.
-          </p>
-        `;
+        elemento.innerHTML =
+          '<p class="vazio">Nenhum lançamento neste mês.</p>';
 
         return;
 
       }
 
 
-      lista.innerHTML =
-        lancamentos
+      elemento.innerHTML =
+        lista
           .slice()
           .reverse()
+          .slice(0, 8)
           .map(item => `
 
             <div class="lancamento">
 
-              <div>
+              <div class="info-lancamento">
 
-                <strong>
-                  ${item.descricao}
-                </strong>
+                <div class="icone-lancamento">
+                  ${item.tipo === "receita" ? "💰" : "💸"}
+                </div>
 
-                <small>
-                  ${item.categoria}
-                </small>
+                <div>
+
+                  <strong>
+                    ${item.descricao}
+                  </strong>
+
+                  <small>
+                    ${item.categoria}
+                  </small>
+
+                </div>
 
               </div>
 
-
               <strong class="${item.tipo}">
 
-                ${
-                  item.tipo === "receita"
-                    ? "+"
-                    : "-"
-                }
+                ${item.tipo === "receita" ? "+" : "-"}
 
-                ${formatarMoeda(item.valor)}
+                ${formatarMoeda(Number(item.valor))}
 
               </strong>
 
@@ -372,9 +756,204 @@
     }
 
 
+    function atualizarListaCompleta() {
+
+      const elemento =
+        document.getElementById(
+          "listaCompleta"
+        );
+
+
+      if (!lancamentos.length) {
+
+        elemento.innerHTML =
+          '<p class="vazio">Nenhum lançamento cadastrado.</p>';
+
+        return;
+
+      }
+
+
+      elemento.innerHTML =
+        lancamentos
+          .slice()
+          .reverse()
+          .map(item => `
+
+            <div class="lancamento">
+
+              <div class="info-lancamento">
+
+                <div class="icone-lancamento">
+                  ${item.tipo === "receita" ? "💰" : "💸"}
+                </div>
+
+                <div>
+
+                  <strong>
+                    ${item.descricao}
+                  </strong>
+
+                  <small>
+                    ${item.categoria}
+                  </small>
+
+                </div>
+
+              </div>
+
+              <strong class="${item.tipo}">
+
+                ${item.tipo === "receita" ? "+" : "-"}
+
+                ${formatarMoeda(Number(item.valor))}
+
+              </strong>
+
+            </div>
+
+          `)
+          .join("");
+
+    }
+
+
+    let graficoResumo;
+
+    let graficoCategorias;
+
+
+    function atualizarGraficos(
+      receitas,
+      despesas,
+      lista
+    ) {
+
+      if (typeof Chart === "undefined") {
+        return;
+      }
+
+
+      if (graficoResumo) {
+        graficoResumo.destroy();
+      }
+
+
+      graficoResumo =
+        new Chart(
+          document.getElementById(
+            "graficoResumo"
+          ),
+          {
+            type: "bar",
+
+            data: {
+              labels: [
+                "Receitas",
+                "Despesas"
+              ],
+
+              datasets: [
+                {
+                  data: [
+                    receitas,
+                    despesas
+                  ]
+                }
+              ]
+            },
+
+            options: {
+              responsive: true,
+
+              maintainAspectRatio: false,
+
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          }
+        );
+
+
+      const categorias = {};
+
+
+      lista
+        .filter(item => item.tipo === "despesa")
+        .forEach(item => {
+
+          categorias[item.categoria] =
+            (categorias[item.categoria] || 0)
+            + Number(item.valor);
+
+        });
+
+
+      if (graficoCategorias) {
+        graficoCategorias.destroy();
+      }
+
+
+      graficoCategorias =
+        new Chart(
+          document.getElementById(
+            "graficoCategorias"
+          ),
+          {
+            type: "doughnut",
+
+            data: {
+              labels:
+                Object.keys(categorias),
+
+              datasets: [
+                {
+                  data:
+                    Object.values(categorias)
+                }
+              ]
+            },
+
+            options: {
+              responsive: true,
+
+              maintainAspectRatio: false,
+
+              plugins: {
+                legend: {
+                  position: "bottom"
+                }
+              }
+            }
+          }
+        );
+
+    }
+
+
+    function atualizarTudo() {
+
+      atualizarMes();
+
+      atualizarDashboard();
+
+      atualizarListaCompleta();
+
+    }
+
+
     document.addEventListener(
       "DOMContentLoaded",
-      atualizarLista
+      atualizarTudo
     );
 
   </script>
