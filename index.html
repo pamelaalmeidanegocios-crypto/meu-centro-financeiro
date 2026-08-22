@@ -271,49 +271,115 @@
 
       <!-- METAS -->
 
-      <section id="metas" class="pagina">
+<section id="metas" class="pagina">
 
-        <div class="painel">
+  <div class="painel">
 
-          <div class="painel-titulo">
+    <div class="painel-titulo">
 
-            <div>
-              <h2>🎯 Minhas metas</h2>
+      <div>
 
-              <p>
-                Seus objetivos financeiros
-              </p>
-            </div>
+        <h2>🎯 Minhas metas</h2>
 
-            <button
-              class="botao-principal"
-              onclick="alert('A área de metas será ativada em breve!')"
-            >
-              + Nova meta
-            </button>
+        <p>
+          Transforme seus planos em objetivos.
+        </p>
 
-          </div>
+      </div>
+
+      <button
+        class="botao-principal"
+        onclick="abrirMeta()"
+      >
+        + Nova meta
+      </button>
+
+    </div>
 
 
-          <div class="meta-vazia">
+    <!-- RESUMO DAS METAS -->
 
-            <div>🎯</div>
+    <div class="cards">
 
-            <h3>
-              Vamos definir sua primeira meta?
-            </h3>
+      <div class="card saldo-card">
 
-            <p>
-              Pode ser uma viagem, uma reserva
-              ou qualquer sonho.
-            </p>
+        <span>
+          Total das metas
+        </span>
 
-          </div>
+        <strong id="totalMetas">
+          R$ 0,00
+        </strong>
 
+        <small>
+          Valor dos objetivos
+        </small>
+
+      </div>
+
+
+      <div class="card receita-card">
+
+        <span>
+          Já guardado
+        </span>
+
+        <strong id="totalGuardado">
+          R$ 0,00
+        </strong>
+
+        <small>
+          Valor acumulado
+        </small>
+
+      </div>
+
+
+      <div class="card economia-card">
+
+        <span>
+          Progresso
+        </span>
+
+        <strong id="progressoMetas">
+          0%
+        </strong>
+
+        <small>
+          Das suas metas
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- LISTA DE METAS -->
+
+    <div id="listaMetas">
+
+      <div class="meta-vazia">
+
+        <div>
+          🎯
         </div>
 
-      </section>
+        <h3>
+          Vamos definir sua primeira meta?
+        </h3>
 
+        <p>
+          Pode ser uma viagem, uma reserva,
+          um carro ou qualquer sonho.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
     </main>
 
   </div>
@@ -410,7 +476,123 @@
 
   </div>
 
+<!-- MODAL DE META -->
 
+<div id="modalMeta" class="modal">
+
+  <div class="modal-conteudo">
+
+    <button
+      class="fechar"
+      onclick="fecharMeta()"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      🎯 Nova meta
+    </h2>
+
+    <p>
+      Defina um objetivo para o seu dinheiro.
+    </p>
+
+
+    <form onsubmit="salvarMeta(event)">
+
+
+      <label>
+        Nome da meta
+      </label>
+
+      <input
+        id="nomeMeta"
+        type="text"
+        placeholder="Ex.: Viagem para a praia"
+        required
+      >
+
+
+      <label>
+        Valor da meta
+      </label>
+
+      <input
+        id="valorMeta"
+        type="number"
+        step="0.01"
+        min="0"
+        placeholder="5000"
+        required
+      >
+
+
+      <label>
+        Quanto já guardou?
+      </label>
+
+      <input
+        id="guardadoMeta"
+        type="number"
+        step="0.01"
+        min="0"
+        placeholder="0"
+        value="0"
+        required
+      >
+
+
+      <label>
+        Categoria
+      </label>
+
+      <select id="categoriaMeta">
+
+        <option>
+          Viagem
+        </option>
+
+        <option>
+          Reserva de emergência
+        </option>
+
+        <option>
+          Casa
+        </option>
+
+        <option>
+          Carro
+        </option>
+
+        <option>
+          Educação
+        </option>
+
+        <option>
+          Investimentos
+        </option>
+
+        <option>
+          Outro
+        </option>
+
+      </select>
+
+
+      <button
+        class="botao-principal salvar"
+        type="submit"
+      >
+        Criar minha meta
+      </button>
+
+
+    </form>
+
+  </div>
+
+</div>
   <!-- CHART.JS -->
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -955,7 +1137,383 @@
       "DOMContentLoaded",
       atualizarTudo
     );
+// =========================
+// METAS FINANCEIRAS
+// =========================
 
+let metas = JSON.parse(
+  localStorage.getItem("metasFinanceiras")
+) || [];
+
+
+// Abrir formulário de meta
+
+function abrirMeta() {
+
+  document
+    .getElementById("modalMeta")
+    .classList.add("aberto");
+
+}
+
+
+// Fechar formulário de meta
+
+function fecharMeta() {
+
+  document
+    .getElementById("modalMeta")
+    .classList.remove("aberto");
+
+}
+
+
+// Salvar nova meta
+
+function salvarMeta(event) {
+
+  event.preventDefault();
+
+
+  const nome =
+    document.getElementById(
+      "nomeMeta"
+    ).value.trim();
+
+
+  const valor =
+    Number(
+      document.getElementById(
+        "valorMeta"
+      ).value
+    );
+
+
+  const guardado =
+    Number(
+      document.getElementById(
+        "guardadoMeta"
+      ).value
+    );
+
+
+  const categoria =
+    document.getElementById(
+      "categoriaMeta"
+    ).value;
+
+
+  if (!nome || valor <= 0) {
+
+    alert(
+      "Preencha o nome e o valor da meta."
+    );
+
+    return;
+
+  }
+
+
+  if (guardado > valor) {
+
+    alert(
+      "O valor guardado não pode ser maior que a meta."
+    );
+
+    return;
+
+  }
+
+
+  const novaMeta = {
+
+    id: Date.now(),
+
+    nome: nome,
+
+    valor: valor,
+
+    guardado: guardado,
+
+    categoria: categoria,
+
+    criadaEm:
+      new Date().toISOString()
+
+  };
+
+
+  metas.push(novaMeta);
+
+
+  salvarMetas();
+
+
+  document
+    .querySelector("#modalMeta form")
+    .reset();
+
+
+  document.getElementById(
+    "guardadoMeta"
+  ).value = 0;
+
+
+  fecharMeta();
+
+
+  atualizarMetas();
+
+}
+
+
+// Salvar no navegador
+
+function salvarMetas() {
+
+  localStorage.setItem(
+    "metasFinanceiras",
+    JSON.stringify(metas)
+  );
+
+}
+
+
+// Atualizar painel
+
+function atualizarMetas() {
+
+  const lista =
+    document.getElementById(
+      "listaMetas"
+    );
+
+
+  const total =
+    metas.reduce(
+      (soma, meta) =>
+        soma + Number(meta.valor),
+      0
+    );
+
+
+  const guardado =
+    metas.reduce(
+      (soma, meta) =>
+        soma + Number(meta.guardado),
+      0
+    );
+
+
+  const progresso =
+    total > 0
+      ? (guardado / total) * 100
+      : 0;
+
+
+  document.getElementById(
+    "totalMetas"
+  ).textContent =
+    formatarMoeda(total);
+
+
+  document.getElementById(
+    "totalGuardado"
+  ).textContent =
+    formatarMoeda(guardado);
+
+
+  document.getElementById(
+    "progressoMetas"
+  ).textContent =
+    Math.min(
+      progresso,
+      100
+    ).toFixed(1) + "%";
+
+
+  if (!metas.length) {
+
+    lista.innerHTML = `
+
+      <div class="meta-vazia">
+
+        <div>🎯</div>
+
+        <h3>
+          Vamos definir sua primeira meta?
+        </h3>
+
+        <p>
+          Pode ser uma viagem, uma reserva,
+          um carro ou qualquer sonho.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  lista.innerHTML =
+    metas.map(meta => {
+
+      const percentual =
+        meta.valor > 0
+          ? (meta.guardado / meta.valor) * 100
+          : 0;
+
+
+      const progressoSeguro =
+        Math.min(
+          percentual,
+          100
+        );
+
+
+      return `
+
+        <div class="painel meta-card">
+
+          <div class="painel-titulo">
+
+            <div>
+
+              <h2>
+                🎯 ${meta.nome}
+              </h2>
+
+              <p>
+                ${meta.categoria}
+              </p>
+
+            </div>
+
+            <strong>
+              ${formatarMoeda(meta.valor)}
+            </strong>
+
+          </div>
+
+
+          <div class="meta-valores">
+
+            <span>
+              Guardado:
+              <strong>
+                ${formatarMoeda(meta.guardado)}
+              </strong>
+            </span>
+
+            <span>
+              ${progressoSeguro.toFixed(1)}%
+            </span>
+
+          </div>
+
+
+          <div class="barra-meta">
+
+            <div
+              class="barra-meta-progresso"
+              style="width: ${progressoSeguro}%"
+            ></div>
+
+          </div>
+
+
+          <div class="meta-rodape">
+
+            <small>
+              Faltam
+              ${formatarMoeda(
+                Math.max(
+                  meta.valor -
+                  meta.guardado,
+                  0
+                )
+              )}
+            </small>
+
+            <button
+              class="botao-link"
+              onclick="adicionarMetaValor(${meta.id})"
+            >
+              + Adicionar valor
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+// Adicionar dinheiro a uma meta
+
+function adicionarMetaValor(id) {
+
+  const meta =
+    metas.find(
+      item =>
+        item.id === id
+    );
+
+
+  if (!meta) {
+    return;
+  }
+
+
+  const valor =
+    Number(
+      prompt(
+        "Quanto deseja adicionar à meta?"
+      )
+    );
+
+
+  if (
+    !valor ||
+    valor <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  meta.guardado =
+    Math.min(
+      Number(meta.guardado) + valor,
+      Number(meta.valor)
+    );
+
+
+  salvarMetas();
+
+  atualizarMetas();
+
+}
+
+
+// Atualizar metas quando abrir o site
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    atualizarMetas();
+
+  }
+);
   </script>
 
 </body>
