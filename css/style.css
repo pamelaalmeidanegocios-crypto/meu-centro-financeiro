@@ -1,172 +1,320 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f8;
-    color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #1f2937;
 }
 
-.app {
-    display: flex;
-    min-height: 100vh;
+/* =========================
+   TOPO
+========================= */
+
+.topo {
+  background: #111827;
+  color: white;
+
+  padding: 25px 8%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
 }
 
-/* MENU LATERAL */
-
-.sidebar {
-    width: 240px;
-    min-height: 100vh;
-    background: #111827;
-    color: white;
-    padding: 25px 18px;
-    position: fixed;
-    left: 0;
-    top: 0;
+.topo h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
 }
 
-.logo {
-    font-size: 21px;
-    font-weight: bold;
-    margin-bottom: 35px;
-    padding-left: 10px;
+.topo p {
+  color: #cbd5e1;
+  font-size: 14px;
 }
 
-.logo span {
-    color: #34d399;
+.topo button {
+  background: white;
+  color: #111827;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 12px 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
 }
 
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.topo button:hover {
+  transform: translateY(-2px);
 }
 
-.menu button {
-    border: none;
-    background: transparent;
-    color: #d1d5db;
-    padding: 13px;
-    border-radius: 8px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+main {
+  width: 84%;
+  max-width: 1200px;
+
+  margin: 35px auto;
 }
 
-.menu button:hover,
-.menu button.active {
-    background: #1f2937;
-    color: white;
-}
 
-/* CONTEÚDO */
+/* =========================
+   CARDS
+========================= */
 
-.content {
-    margin-left: 240px;
-    width: calc(100% - 240px);
-    padding: 30px;
-}
+.resumo {
+  display: grid;
 
-/* CABEÇALHO */
+  grid-template-columns:
+    repeat(3, 1fr);
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
+  gap: 20px;
 
-.header h1 {
-    font-size: 28px;
-}
-
-.header p {
-    color: #6b7280;
-    margin-top: 6px;
-}
-
-/* CARDS */
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+  margin-bottom: 30px;
 }
 
 .card {
-    background: white;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0, 0, 0, 0.06);
+
+  border-left: 5px solid #111827;
 }
 
-.card-title {
-    color: #6b7280;
-    font-size: 13px;
-    margin-bottom: 10px;
+.card span {
+  display: block;
+
+  color: #6b7280;
+
+  font-size: 14px;
+
+  margin-bottom: 10px;
 }
 
-.card-value {
-    font-size: 24px;
-    font-weight: bold;
+.card strong {
+  font-size: 28px;
 }
 
-.green {
-    color: #059669;
+.card.receita {
+  border-left-color: #16a34a;
 }
 
-.red {
-    color: #dc2626;
+.card.despesa {
+  border-left-color: #dc2626;
 }
 
-.blue {
-    color: #2563eb;
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
+.formulario {
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 25px;
+
+  margin-bottom: 30px;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0, 0, 0, 0.06);
 }
 
-.purple {
-    color: #7c3aed;
+.formulario h2 {
+  margin-bottom: 20px;
 }
 
-/* RESPONSIVO */
+.formulario form {
+  display: grid;
 
-@media (max-width: 1000px) {
-
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
+  gap: 12px;
 }
+
+.formulario label {
+  font-size: 13px;
+
+  font-weight: bold;
+}
+
+.formulario input,
+.formulario select {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+}
+
+.botoes {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.botoes button {
+  border: none;
+
+  padding: 12px 18px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+.botoes button:first-child {
+  background: #111827;
+
+  color: white;
+}
+
+.botoes button:last-child {
+  background: #e5e7eb;
+
+  color: #374151;
+}
+
+
+/* =========================
+   LISTA
+========================= */
+
+.lista {
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0, 0, 0, 0.06);
+}
+
+.titulo-lista {
+  margin-bottom: 20px;
+}
+
+.titulo-lista h2 {
+  font-size: 20px;
+}
+
+.lancamento {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 15px 0;
+
+  border-bottom:
+    1px solid #e5e7eb;
+}
+
+.lancamento:last-child {
+  border-bottom: none;
+}
+
+.lancamento strong {
+  display: block;
+}
+
+.lancamento small {
+  display: block;
+
+  color: #6b7280;
+
+  margin-top: 5px;
+}
+
+.lancamento .receita {
+  color: #16a34a;
+}
+
+.lancamento .despesa {
+  color: #dc2626;
+}
+
+.vazio {
+  color: #6b7280;
+
+  text-align: center;
+
+  padding: 30px;
+}
+
+
+/* =========================
+   RODAPÉ
+========================= */
+
+footer {
+  text-align: center;
+
+  padding: 30px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
 
 @media (max-width: 700px) {
 
-    .sidebar {
-        width: 65px;
-        padding: 20px 8px;
-    }
+  .topo {
+    flex-direction: column;
 
-    .logo {
-        font-size: 0;
-    }
+    align-items: flex-start;
 
-    .logo span {
-        font-size: 20px;
-    }
+    padding: 22px;
+  }
 
-    .menu button {
-        font-size: 0;
-        text-align: center;
-    }
+  .topo button {
+    width: 100%;
+  }
 
-    .content {
-        margin-left: 65px;
-        width: calc(100% - 65px);
-        padding: 18px;
-    }
+  main {
+    width: 92%;
+  }
 
-    .cards {
-        grid-template-columns: 1fr;
-    }
+  .resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .card strong {
+    font-size: 24px;
+  }
+
 }
