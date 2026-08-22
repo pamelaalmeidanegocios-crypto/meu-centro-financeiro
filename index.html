@@ -1,170 +1,383 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+  <title>Meu Centro Financeiro</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Meu Centro Financeiro</title>
-
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 
 <body>
 
+  <header class="topo">
 
-<div class="app">
+    <div>
+      <h1>💰 Meu Centro Financeiro</h1>
+      <p>Organize seu dinheiro de forma simples.</p>
+    </div>
+
+    <button onclick="abrirFormulario()">
+      + Novo lançamento
+    </button>
+
+  </header>
 
 
-    <!-- MENU -->
+  <main>
 
-    <aside class="sidebar">
+    <!-- ============================= -->
+    <!-- RESUMO FINANCEIRO -->
+    <!-- ============================= -->
 
-        <div class="logo">
+    <section class="resumo">
 
-            Meu
-            <span>Dinheiro</span>
+      <div class="card">
+
+        <span>Saldo</span>
+
+        <strong id="saldo">
+          R$ 0,00
+        </strong>
+
+      </div>
+
+
+      <div class="card receita">
+
+        <span>Receitas</span>
+
+        <strong id="receitas">
+          R$ 0,00
+        </strong>
+
+      </div>
+
+
+      <div class="card despesa">
+
+        <span>Despesas</span>
+
+        <strong id="despesas">
+          R$ 0,00
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- FORMULÁRIO -->
+    <!-- ============================= -->
+
+    <section
+      id="formulario"
+      class="formulario"
+      style="display:none;"
+    >
+
+      <h2>Novo lançamento</h2>
+
+
+      <form onsubmit="salvarFormulario(event)">
+
+        <label>
+          Tipo
+        </label>
+
+        <select id="tipo" required>
+
+          <option value="receita">
+            Receita
+          </option>
+
+          <option value="despesa">
+            Despesa
+          </option>
+
+        </select>
+
+
+        <label>
+          Descrição
+        </label>
+
+        <input
+          type="text"
+          id="descricao"
+          placeholder="Ex.: Salário"
+          required
+        >
+
+
+        <label>
+          Valor
+        </label>
+
+        <input
+          type="number"
+          id="valor"
+          placeholder="0,00"
+          step="0.01"
+          min="0"
+          required
+        >
+
+
+        <label>
+          Categoria
+        </label>
+
+        <select id="categoria" required>
+
+          <option value="Salário">
+            Salário
+          </option>
+
+          <option value="Alimentação">
+            Alimentação
+          </option>
+
+          <option value="Casa">
+            Casa
+          </option>
+
+          <option value="Transporte">
+            Transporte
+          </option>
+
+          <option value="Lazer">
+            Lazer
+          </option>
+
+          <option value="Compras">
+            Compras
+          </option>
+
+          <option value="Saúde">
+            Saúde
+          </option>
+
+          <option value="Educação">
+            Educação
+          </option>
+
+          <option value="Outros">
+            Outros
+          </option>
+
+        </select>
+
+
+        <div class="botoes">
+
+          <button
+            type="submit"
+          >
+            Salvar lançamento
+          </button>
+
+
+          <button
+            type="button"
+            onclick="fecharFormulario()"
+          >
+            Cancelar
+          </button>
 
         </div>
 
+      </form>
 
-        <nav class="menu">
-
-            <button class="active">
-                🏠 Dashboard
-            </button>
-
-            <button>
-                💸 Gastos
-            </button>
-
-            <button>
-                💰 Receitas
-            </button>
-
-            <button>
-                🎯 Metas
-            </button>
-
-            <button>
-                📊 Relatórios
-            </button>
-
-            <button>
-                ⚙️ Configurações
-            </button>
-
-        </nav>
-
-    </aside>
+    </section>
 
 
-    <!-- CONTEÚDO -->
+    <!-- ============================= -->
+    <!-- LANÇAMENTOS -->
+    <!-- ============================= -->
 
-    <main class="content">
+    <section class="lista">
+
+      <div class="titulo-lista">
+
+        <h2>
+          Últimos lançamentos
+        </h2>
+
+      </div>
 
 
-        <div class="header">
+      <div id="listaLancamentos">
 
-            <div>
+        <p class="vazio">
+          Nenhum lançamento cadastrado ainda.
+        </p>
 
-                <h1>
-                    Olá! 👋
-                </h1>
+      </div>
 
-                <p>
-                    Vamos cuidar do seu dinheiro hoje.
-                </p>
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <p>
+      Meu Centro Financeiro © 2026
+    </p>
+
+  </footer>
+
+
+  <!-- ============================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ============================= -->
+
+  <script src="js/app.js"></script>
+
+
+  <script>
+
+    function abrirFormulario() {
+
+      document.getElementById(
+        "formulario"
+      ).style.display = "block";
+
+    }
+
+
+    function fecharFormulario() {
+
+      document.getElementById(
+        "formulario"
+      ).style.display = "none";
+
+    }
+
+
+    function salvarFormulario(event) {
+
+      event.preventDefault();
+
+
+      const tipo =
+        document.getElementById(
+          "tipo"
+        ).value;
+
+
+      const descricao =
+        document.getElementById(
+          "descricao"
+        ).value;
+
+
+      const valor =
+        document.getElementById(
+          "valor"
+        ).value;
+
+
+      const categoria =
+        document.getElementById(
+          "categoria"
+        ).value;
+
+
+      adicionarLancamento(
+        tipo,
+        descricao,
+        valor,
+        categoria
+      );
+
+
+      document.querySelector(
+        "form"
+      ).reset();
+
+
+      fecharFormulario();
+
+      atualizarLista();
+
+    }
+
+
+    function atualizarLista() {
+
+      const lista =
+        document.getElementById(
+          "listaLancamentos"
+        );
+
+
+      if (
+        typeof lancamentos === "undefined" ||
+        lancamentos.length === 0
+      ) {
+
+        lista.innerHTML = `
+          <p class="vazio">
+            Nenhum lançamento cadastrado ainda.
+          </p>
+        `;
+
+        return;
+
+      }
+
+
+      lista.innerHTML =
+        lancamentos
+          .slice()
+          .reverse()
+          .map(item => `
+
+            <div class="lancamento">
+
+              <div>
+
+                <strong>
+                  ${item.descricao}
+                </strong>
+
+                <small>
+                  ${item.categoria}
+                </small>
+
+              </div>
+
+
+              <strong class="${item.tipo}">
+
+                ${
+                  item.tipo === "receita"
+                    ? "+"
+                    : "-"
+                }
+
+                ${formatarMoeda(item.valor)}
+
+              </strong>
 
             </div>
 
+          `)
+          .join("");
 
-            <div>
-
-                Agosto 2026
-
-            </div>
-
-        </div>
+    }
 
 
-        <!-- CARDS -->
+    document.addEventListener(
+      "DOMContentLoaded",
+      atualizarLista
+    );
 
-        <div class="cards">
-
-
-            <div class="card">
-
-                <div class="card-title">
-                    Saldo disponível
-                </div>
-
-                <div class="card-value blue">
-                    R$ 0,00
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-title">
-                    Entradas
-                </div>
-
-                <div class="card-value green">
-                    R$ 0,00
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-title">
-                    Gastos
-                </div>
-
-                <div class="card-value red">
-                    R$ 0,00
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-title">
-                    Economia
-                </div>
-
-                <div class="card-value purple">
-                    R$ 0,00
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-    </main>
-
-
-</div>
-
+  </script>
 
 </body>
-
 </html>
