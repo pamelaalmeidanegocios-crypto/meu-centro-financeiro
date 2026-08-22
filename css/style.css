@@ -6,45 +6,204 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #f4f6f8;
-  color: #1f2937;
+  background: #f5f6f8;
+  color: #17202a;
 }
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
 
 /* =========================
-   TOPO
+   ESTRUTURA
 ========================= */
 
-.topo {
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+
+/* =========================
+   MENU LATERAL
+========================= */
+
+.sidebar {
+  width: 250px;
   background: #111827;
   color: white;
-
-  padding: 25px 8%;
+  padding: 28px 18px;
 
   display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.logo {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
 
-  gap: 20px;
+  padding: 0 10px 35px;
 }
 
-.topo h1 {
-  font-size: 28px;
-  margin-bottom: 6px;
-}
+.logo-icon {
+  width: 42px;
+  height: 42px;
 
-.topo p {
-  color: #cbd5e1;
-  font-size: 14px;
-}
-
-.topo button {
   background: white;
   color: #111827;
 
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.logo strong,
+.logo span {
+  display: block;
+}
+
+.logo strong {
+  font-size: 17px;
+}
+
+.logo span {
+  color: #9ca3af;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+
+/* MENU */
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu {
   border: none;
+  background: transparent;
+
+  color: #cbd5e1;
+
+  text-align: left;
+
+  padding: 13px 14px;
+
   border-radius: 10px;
 
+  cursor: pointer;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.menu:hover {
+  background: #1f2937;
+  color: white;
+}
+
+.menu.active {
+  background: #1f2937;
+  color: white;
+}
+
+
+/* DICA */
+
+.dica {
+  margin-top: auto;
+
+  background: #1f2937;
+
+  border-radius: 14px;
+
+  padding: 16px;
+
+  color: #cbd5e1;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.dica p {
+  margin-top: 8px;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo {
+  margin-left: 250px;
+
+  width: calc(100% - 250px);
+
+  padding: 35px;
+
+  max-width: 1500px;
+}
+
+
+/* CABEÇALHO */
+
+.cabecalho {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.subtitulo {
+  font-size: 11px;
+
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  color: #6b7280;
+}
+
+.cabecalho h1 {
+  margin-top: 5px;
+
+  font-size: 30px;
+}
+
+
+/* BOTÃO PRINCIPAL */
+
+.botao-principal {
+  border: none;
+
+  background: #111827;
+
+  color: white;
+
   padding: 12px 18px;
+
+  border-radius: 10px;
 
   font-weight: bold;
 
@@ -53,20 +212,58 @@ body {
   transition: 0.2s;
 }
 
-.topo button:hover {
-  transform: translateY(-2px);
+.botao-principal:hover {
+  transform: translateY(-1px);
+
+  opacity: 0.9;
 }
 
 
 /* =========================
-   CONTEÚDO
+   SELETOR DE MÊS
 ========================= */
 
-main {
-  width: 84%;
-  max-width: 1200px;
+.seletor-mes {
+  display: flex;
 
-  margin: 35px auto;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.seletor-mes button {
+  width: 35px;
+
+  height: 35px;
+
+  border: 1px solid #e5e7eb;
+
+  background: white;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  font-size: 20px;
+}
+
+.seletor-mes button:hover {
+  background: #f3f4f6;
+}
+
+
+/* =========================
+   PÁGINAS
+========================= */
+
+.pagina {
+  display: none;
+}
+
+.pagina.ativa {
+  display: block;
 }
 
 
@@ -74,15 +271,15 @@ main {
    CARDS
 ========================= */
 
-.resumo {
+.cards {
   display: grid;
 
   grid-template-columns:
-    repeat(3, 1fr);
+    repeat(4, 1fr);
 
-  gap: 20px;
+  gap: 16px;
 
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .card {
@@ -90,13 +287,13 @@ main {
 
   border-radius: 16px;
 
-  padding: 25px;
+  padding: 21px;
+
+  border: 1px solid #e8eaee;
 
   box-shadow:
-    0 5px 20px
-    rgba(0, 0, 0, 0.06);
-
-  border-left: 5px solid #111827;
+    0 5px 18px
+    rgba(15, 23, 42, 0.04);
 }
 
 .card span {
@@ -104,127 +301,117 @@ main {
 
   color: #6b7280;
 
-  font-size: 14px;
+  font-size: 13px;
 
   margin-bottom: 10px;
 }
 
 .card strong {
-  font-size: 28px;
+  display: block;
+
+  font-size: 25px;
+
+  margin-bottom: 7px;
 }
 
-.card.receita {
-  border-left-color: #16a34a;
+.card small {
+  color: #6b7280;
 }
 
-.card.despesa {
-  border-left-color: #dc2626;
+.saldo-card {
+  border-left: 4px solid #111827;
+}
+
+.receita-card {
+  border-left: 4px solid #16a34a;
+}
+
+.despesa-card {
+  border-left: 4px solid #dc2626;
+}
+
+.economia-card {
+  border-left: 4px solid #7c3aed;
 }
 
 
 /* =========================
-   FORMULÁRIO
+   PAINÉIS
 ========================= */
 
-.formulario {
+.painel {
   background: white;
+
+  border: 1px solid #e8eaee;
 
   border-radius: 16px;
 
-  padding: 25px;
+  padding: 22px;
 
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   box-shadow:
-    0 5px 20px
-    rgba(0, 0, 0, 0.06);
+    0 5px 18px
+    rgba(15, 23, 42, 0.04);
 }
 
-.formulario h2 {
-  margin-bottom: 20px;
-}
-
-.formulario form {
-  display: grid;
-
-  gap: 12px;
-}
-
-.formulario label {
-  font-size: 13px;
-
-  font-weight: bold;
-}
-
-.formulario input,
-.formulario select {
-  width: 100%;
-
-  padding: 12px;
-
-  border: 1px solid #d1d5db;
-
-  border-radius: 8px;
-
-  font-size: 14px;
-}
-
-.botoes {
+.painel-titulo {
   display: flex;
 
-  gap: 10px;
+  align-items: center;
 
-  margin-top: 10px;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
 }
 
-.botoes button {
+.painel-titulo h2 {
+  font-size: 18px;
+}
+
+.painel-titulo p {
+  color: #6b7280;
+
+  font-size: 13px;
+
+  margin-top: 5px;
+}
+
+.botao-link {
   border: none;
 
-  padding: 12px 18px;
-
-  border-radius: 8px;
-
-  cursor: pointer;
-
-  font-weight: bold;
-}
-
-.botoes button:first-child {
-  background: #111827;
-
-  color: white;
-}
-
-.botoes button:last-child {
-  background: #e5e7eb;
+  background: transparent;
 
   color: #374151;
+
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
 
 /* =========================
-   LISTA
+   GRÁFICOS
 ========================= */
 
-.lista {
-  background: white;
+.graficos {
+  display: grid;
 
-  border-radius: 16px;
+  grid-template-columns: 1fr 1fr;
 
-  padding: 25px;
-
-  box-shadow:
-    0 5px 20px
-    rgba(0, 0, 0, 0.06);
+  gap: 18px;
 }
 
-.titulo-lista {
-  margin-bottom: 20px;
+.grafico {
+  height: 280px;
+
+  position: relative;
 }
 
-.titulo-lista h2 {
-  font-size: 20px;
-}
+
+/* =========================
+   LANÇAMENTOS
+========================= */
 
 .lancamento {
   display: flex;
@@ -233,88 +420,287 @@ main {
 
   align-items: center;
 
-  padding: 15px 0;
+  padding: 14px 0;
 
-  border-bottom:
-    1px solid #e5e7eb;
+  border-bottom: 1px solid #eef0f3;
 }
 
 .lancamento:last-child {
   border-bottom: none;
 }
 
-.lancamento strong {
-  display: block;
+.info-lancamento {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
 }
 
-.lancamento small {
+.icone-lancamento {
+  width: 40px;
+
+  height: 40px;
+
+  border-radius: 11px;
+
+  background: #f3f4f6;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 18px;
+}
+
+.info-lancamento strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.info-lancamento small {
   display: block;
 
   color: #6b7280;
 
-  margin-top: 5px;
+  font-size: 12px;
+
+  margin-top: 4px;
 }
 
 .lancamento .receita {
-  color: #16a34a;
+  color: #15803d;
 }
 
 .lancamento .despesa {
-  color: #dc2626;
+  color: #b91c1c;
 }
 
 .vazio {
-  color: #6b7280;
-
   text-align: center;
+
+  color: #6b7280;
 
   padding: 30px;
 }
 
 
 /* =========================
-   RODAPÉ
+   METAS
 ========================= */
 
-footer {
+.meta-vazia {
   text-align: center;
 
-  padding: 30px;
+  padding: 70px 20px;
 
+  color: #6b7280;
+}
+
+.meta-vazia div {
+  font-size: 45px;
+
+  margin-bottom: 15px;
+}
+
+.meta-vazia h3 {
+  color: #374151;
+
+  margin-bottom: 8px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+  display: none;
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(15, 23, 42, 0.6);
+
+  z-index: 1000;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.modal.aberto {
+  display: flex;
+}
+
+.modal-conteudo {
+  width: 100%;
+
+  max-width: 480px;
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  position: relative;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0, 0, 0, 0.2);
+}
+
+.modal-conteudo h2 {
+  font-size: 22px;
+
+  margin-bottom: 5px;
+}
+
+.modal-conteudo > p {
   color: #6b7280;
 
   font-size: 13px;
+
+  margin-bottom: 22px;
+}
+
+.fechar {
+  position: absolute;
+
+  top: 12px;
+
+  right: 15px;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 28px;
+
+  color: #6b7280;
+
+  cursor: pointer;
+}
+
+.modal form {
+  display: grid;
+
+  gap: 12px;
+}
+
+.modal label {
+  font-size: 13px;
+
+  font-weight: bold;
+}
+
+.modal input,
+.modal select {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #dfe3e8;
+
+  border-radius: 9px;
+
+  margin-top: 7px;
+
+  outline: none;
+}
+
+.modal input:focus,
+.modal select:focus {
+  border-color: #6b7280;
+}
+
+.salvar {
+  width: 100%;
+
+  margin-top: 8px;
 }
 
 
 /* =========================
-   CELULAR
+   RESPONSIVO
 ========================= */
+
+@media (max-width: 1000px) {
+
+  .cards {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .graficos {
+    grid-template-columns: 1fr;
+  }
+
+}
+
 
 @media (max-width: 700px) {
 
-  .topo {
+  .sidebar {
+    position: relative;
+
+    width: 100%;
+
+    height: auto;
+  }
+
+  .app {
+    display: block;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+
+    overflow-x: auto;
+  }
+
+  .menu {
+    white-space: nowrap;
+  }
+
+  .dica {
+    display: none;
+  }
+
+  .conteudo {
+    margin-left: 0;
+
+    width: 100%;
+
+    padding: 20px 14px;
+  }
+
+  .cabecalho {
     flex-direction: column;
 
     align-items: flex-start;
 
-    padding: 22px;
+    gap: 15px;
   }
 
-  .topo button {
+  .cabecalho .botao-principal {
     width: 100%;
   }
 
-  main {
-    width: 92%;
-  }
-
-  .resumo {
+  .cards {
     grid-template-columns: 1fr;
   }
 
-  .card strong {
-    font-size: 24px;
+  .graficos {
+    grid-template-columns: 1fr;
   }
 
 }
