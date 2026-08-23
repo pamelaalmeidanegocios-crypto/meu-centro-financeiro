@@ -913,3 +913,62 @@ select {
 .meta-rodape small {
   color: #6b7280;
 }
+/* =========================
+   CORREÇÃO DEFINITIVA
+   BARRA DOS CARTÕES
+========================= */
+
+.cartao-card {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible !important;
+  padding: 24px !important;
+}
+
+.cartao-card .barra-cartao {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+
+  width: 100% !important;
+  max-width: 100% !important;
+
+  height: 12px !important;
+  min-height: 12px !important;
+
+  margin: 12px 0 20px 0 !important;
+  padding: 0 !important;
+
+  overflow: hidden !important;
+
+  border-radius: 20px;
+}
+
+.cartao-card .barra-cartao-progresso {
+  display: block;
+
+  position: relative;
+
+  height: 100% !important;
+  min-height: 12px !important;
+
+  max-width: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border-radius: 20px;
+
+  box-sizing: border-box;
+}
+
+.cartao-card .cartao-valores {
+  width: 100%;
+  max-width: 100%;
+}
+
+.cartao-card .cartao-info {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
