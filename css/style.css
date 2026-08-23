@@ -1002,3 +1002,54 @@ select {
 
   transform: none !important;
 }
+/* =========================
+   BARRA DE UTILIZAÇÃO
+   V4 - VERSÃO LIMPA
+========================= */
+
+.cartao-card .barra-cartao-container {
+  width: 100%;
+  height: 12px;
+
+  display: block;
+
+  margin: 12px 0 20px 0;
+
+  padding: 0;
+
+  background: #eef0f3;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+.cartao-card .barra-cartao-fill {
+  display: block;
+
+  height: 12px;
+
+  min-width: 0;
+  max-width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  border-radius: 999px;
+
+  background: #16a34a;
+
+  box-sizing: border-box;
+
+  transition: width 0.4s ease;
+}
+
+.cartao-card .barra-cartao-fill.limite-atencao {
+  background: #f59e0b;
+}
+
+.cartao-card .barra-cartao-fill.limite-perigo {
+  background: #dc2626;
+}
