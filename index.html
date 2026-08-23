@@ -814,7 +814,18 @@
 
 
       if (pagina === "metas") {
+        
+if (pagina === "cartoes") {
 
+  menus[3].classList.add("active");
+
+  document.getElementById(
+    "tituloPagina"
+  ).textContent = "Cartões";
+
+  atualizarCartoes();
+
+}
         menus[2].classList.add("active");
 
         document.getElementById(
