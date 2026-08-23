@@ -764,85 +764,84 @@
     let dataSelecionada = new Date();
 
 
-    function mostrarPagina(pagina) {
+ function mostrarPagina(pagina) {
 
-      document
-        .querySelectorAll(".pagina")
-        .forEach(secao => {
-          secao.classList.remove("ativa");
-        });
-
-
-      document
-        .getElementById(pagina)
-        .classList.add("ativa");
+  document
+    .querySelectorAll(".pagina")
+    .forEach(secao => {
+      secao.classList.remove("ativa");
+    });
 
 
-      document
-        .querySelectorAll(".menu")
-        .forEach(botao => {
-          botao.classList.remove("active");
-        });
+  const secaoSelecionada =
+    document.getElementById(pagina);
+
+  if (secaoSelecionada) {
+    secaoSelecionada.classList.add("ativa");
+  }
 
 
-      const menus =
-        document.querySelectorAll(".menu");
+  document
+    .querySelectorAll(".menu")
+    .forEach(botao => {
+      botao.classList.remove("active");
+    });
 
 
-      if (pagina === "dashboard") {
-
-        menus[0].classList.add("active");
-
-        document.getElementById(
-          "tituloPagina"
-        ).textContent = "Dashboard";
-
-      }
+  const menus =
+    document.querySelectorAll(".menu");
 
 
-      if (pagina === "lancamentos") {
+  if (pagina === "dashboard") {
 
-        menus[1].classList.add("active");
+    menus[0].classList.add("active");
 
-        document.getElementById(
-          "tituloPagina"
-        ).textContent = "Lançamentos";
+    document.getElementById(
+      "tituloPagina"
+    ).textContent = "Dashboard";
 
-        atualizarListaCompleta();
+  }
 
-      }
 
-      if (pagina === "metas") {
+  if (pagina === "lancamentos") {
 
-  menus[2].classList.add("active");
+    menus[1].classList.add("active");
 
-  document.getElementById(
-    "tituloPagina"
-  ).textContent = "Metas";
+    document.getElementById(
+      "tituloPagina"
+    ).textContent = "Lançamentos";
+
+    atualizarListaCompleta();
+
+  }
+
+
+  if (pagina === "metas") {
+
+    menus[2].classList.add("active");
+
+    document.getElementById(
+      "tituloPagina"
+    ).textContent = "Metas";
+
+    atualizarMetas();
+
+  }
+
+
+  if (pagina === "cartoes") {
+
+    menus[3].classList.add("active");
+
+    document.getElementById(
+      "tituloPagina"
+    ).textContent = "Cartões";
+
+    atualizarCartoes();
+
+  }
 
 }
-
-
-if (pagina === "cartoes") {
-
-  menus[3].classList.add("active");
-
-  document.getElementById(
-    "tituloPagina"
-  ).textContent = "Cartões";
-
-  atualizarCartoes();
-
-}
-        menus[2].classList.add("active");
-
-        document.getElementById(
-          "tituloPagina"
-        ).textContent = "Metas";
-
-      }
-
-    }
 
 
     function abrirFormulario() {
