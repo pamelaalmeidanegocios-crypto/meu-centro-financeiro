@@ -1053,3 +1053,61 @@ select {
 .cartao-card .barra-cartao-fill.limite-perigo {
   background: #dc2626;
 }
+/* ==============================
+   BARRA DO CARTÃO - CORREÇÃO FINAL
+============================== */
+
+.cartao-card .barra-cartao-container {
+  display: block !important;
+
+  position: relative !important;
+
+  width: 100% !important;
+  height: 14px !important;
+
+  min-height: 14px !important;
+
+  margin: 14px 0 20px 0 !important;
+  padding: 0 !important;
+
+  background: #e5e7eb !important;
+
+  border-radius: 50px !important;
+
+  overflow: hidden !important;
+
+  box-sizing: border-box !important;
+}
+
+.cartao-card .barra-cartao-fill {
+  display: block !important;
+
+  position: absolute !important;
+
+  left: 0 !important;
+  top: 0 !important;
+
+  width: 0;
+
+  height: 14px !important;
+  min-height: 14px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border-radius: 50px !important;
+
+  background: #16a34a !important;
+
+  box-sizing: border-box !important;
+
+  transition: width 0.4s ease !important;
+}
+
+.cartao-card .barra-cartao-fill.limite-atencao {
+  background: #f59e0b !important;
+}
+
+.cartao-card .barra-cartao-fill.limite-perigo {
+  background: #dc2626 !important;
+}
