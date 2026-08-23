@@ -972,3 +972,33 @@ select {
   max-width: 100%;
   box-sizing: border-box;
 }
+/* CORREÇÃO - INÍCIO DA BARRA DO CARTÃO */
+
+.cartao-card {
+  overflow: visible !important;
+  position: relative !important;
+}
+
+.cartao-card .barra-cartao {
+  position: relative !important;
+  left: 0 !important;
+  right: auto !important;
+
+  width: 100% !important;
+
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+  transform: none !important;
+}
+
+.cartao-card .barra-cartao-progresso {
+  position: absolute !important;
+
+  left: 0 !important;
+  top: 0 !important;
+
+  margin-left: 0 !important;
+
+  transform: none !important;
+}
