@@ -1111,3 +1111,24 @@ select {
 .cartao-card .barra-cartao-fill.limite-perigo {
   background: #dc2626 !important;
 }
+/* AJUSTE FINAL - BARRA DENTRO DO CARTÃO */
+
+.cartao-card {
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.cartao-card .barra-cartao-container {
+  width: 100% !important;
+  max-width: 100% !important;
+
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+  box-sizing: border-box !important;
+}
+
+.cartao-card .barra-cartao-fill {
+  max-width: 100% !important;
+}
