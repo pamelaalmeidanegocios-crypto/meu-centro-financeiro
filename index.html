@@ -765,14 +765,17 @@
     let dataSelecionada = new Date();
 
 
- function mostrarPagina(pagina) {
+ let paginaAtual = "dashboard";
+
+function mostrarPagina(pagina) {
+
+  paginaAtual = pagina;
 
   document
     .querySelectorAll(".pagina")
     .forEach(secao => {
       secao.classList.remove("ativa");
     });
-
 
   const secaoSelecionada =
     document.getElementById(pagina);
@@ -781,25 +784,30 @@
     secaoSelecionada.classList.add("ativa");
   }
 
-
   document
     .querySelectorAll(".menu")
     .forEach(botao => {
       botao.classList.remove("active");
     });
 
-
   const menus =
     document.querySelectorAll(".menu");
+
+  const titulo =
+    document.getElementById("tituloPagina");
+
+  const botaoAcao =
+    document.getElementById("botaoAcaoPrincipal");
 
 
   if (pagina === "dashboard") {
 
     menus[0].classList.add("active");
 
-    document.getElementById(
-      "tituloPagina"
-    ).textContent = "Dashboard";
+    titulo.textContent = "Dashboard";
+
+    botaoAcao.textContent =
+      "+ Novo lançamento";
 
   }
 
@@ -808,9 +816,11 @@
 
     menus[1].classList.add("active");
 
-    document.getElementById(
-      "tituloPagina"
-    ).textContent = "Lançamentos";
+    titulo.textContent =
+      "Lançamentos";
+
+    botaoAcao.textContent =
+      "+ Novo lançamento";
 
     atualizarListaCompleta();
 
@@ -821,9 +831,11 @@
 
     menus[2].classList.add("active");
 
-    document.getElementById(
-      "tituloPagina"
-    ).textContent = "Metas";
+    titulo.textContent =
+      "Metas";
+
+    botaoAcao.textContent =
+      "+ Nova meta";
 
     atualizarMetas();
 
@@ -834,16 +846,38 @@
 
     menus[3].classList.add("active");
 
-    document.getElementById(
-      "tituloPagina"
-    ).textContent = "Cartões";
+    titulo.textContent =
+      "Cartões";
+
+    botaoAcao.textContent =
+      "+ Novo cartão";
 
     atualizarCartoes();
 
   }
 
 }
+    function executarAcaoPrincipal() {
 
+  if (paginaAtual === "metas") {
+
+    abrirMeta();
+
+    return;
+  }
+
+
+  if (paginaAtual === "cartoes") {
+
+    abrirCartao();
+
+    return;
+  }
+
+
+  abrirFormulario();
+
+}
 
     function abrirFormulario() {
 
