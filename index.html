@@ -940,7 +940,19 @@ function mostrarPagina(pagina) {
     atualizarCartoes();
 
   }
+if (pagina === "contas") {
 
+  menus[4].classList.add("active");
+
+  titulo.textContent =
+    "Contas";
+
+  botaoAcao.textContent =
+    "+ Nova conta";
+
+  atualizarContas();
+
+}
 }
     function executarAcaoPrincipal() {
 
