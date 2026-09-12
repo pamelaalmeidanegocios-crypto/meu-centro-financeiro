@@ -823,20 +823,6 @@ select {
   color: #17202a;
 }
 
-.barra-cartao {
-  height: 10px;
-
-  width: 100%;
-
-  background: #eef0f3;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-
-  margin-bottom: 20px;
-}
-
 .barra-cartao-progresso {
   height: 100%;
 
@@ -913,95 +899,7 @@ select {
 .meta-rodape small {
   color: #6b7280;
 }
-/* =========================
-   CORREÇÃO DEFINITIVA
-   BARRA DOS CARTÕES
-========================= */
 
-.cartao-card {
-  width: 100%;
-  max-width: 100%;
-  overflow: visible !important;
-  padding: 24px !important;
-}
-
-.cartao-card .barra-cartao {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-
-  width: 100% !important;
-  max-width: 100% !important;
-
-  height: 12px !important;
-  min-height: 12px !important;
-
-  margin: 12px 0 20px 0 !important;
-  padding: 0 !important;
-
-  overflow: hidden !important;
-
-  border-radius: 20px;
-}
-
-.cartao-card .barra-cartao-progresso {
-  display: block;
-
-  position: relative;
-
-  height: 100% !important;
-  min-height: 12px !important;
-
-  max-width: 100% !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  border-radius: 20px;
-
-  box-sizing: border-box;
-}
-
-.cartao-card .cartao-valores {
-  width: 100%;
-  max-width: 100%;
-}
-
-.cartao-card .cartao-info {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-/* CORREÇÃO - INÍCIO DA BARRA DO CARTÃO */
-
-.cartao-card {
-  overflow: visible !important;
-  position: relative !important;
-}
-
-.cartao-card .barra-cartao {
-  position: relative !important;
-  left: 0 !important;
-  right: auto !important;
-
-  width: 100% !important;
-
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-
-  transform: none !important;
-}
-
-.cartao-card .barra-cartao-progresso {
-  position: absolute !important;
-
-  left: 0 !important;
-  top: 0 !important;
-
-  margin-left: 0 !important;
-
-  transform: none !important;
-}
 /* =========================
    BARRA DE UTILIZAÇÃO
    V4 - VERSÃO LIMPA
