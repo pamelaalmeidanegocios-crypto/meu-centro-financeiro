@@ -2302,5 +2302,225 @@ document.addEventListener(
 
   }
 );
+    // =========================
+// CONTAS
+// =========================
+
+let contas = JSON.parse(
+  localStorage.getItem("contasFinanceiras")
+) || [];
+
+
+function salvarContas() {
+  localStorage.setItem(
+    "contasFinanceiras",
+    JSON.stringify(contas)
+  );
+}
+
+
+function salvarConta(event) {
+  event.preventDefault();
+
+  const nome =
+    document.getElementById("nomeConta").value.trim();
+
+  const valor =
+    Number(document.getElementById("valorConta").value);
+
+  const vencimento =
+    document.getElementById("vencimentoConta").value;
+
+  const categoria =
+    document.getElementById("categoriaConta").value;
+
+  const status =
+    document.getElementById("statusConta").value;
+
+
+  if (!nome || valor <= 0 || !vencimento) {
+    alert("Preencha nome, valor e vencimento.");
+    return;
+  }
+
+
+  const novaConta = {
+    id: Date.now(),
+    nome: nome,
+    valor: valor,
+    vencimento: vencimento,
+    categoria: categoria,
+    paga: status === "paga"
+  };
+
+
+  contas.push(novaConta);
+
+  salvarContas();
+
+  document
+    .querySelector("#modalConta form")
+    .reset();
+
+  fecharConta();
+
+  atualizarContas();
+}
+
+
+function formatarDataConta(data) {
+  const partes = data.split("-");
+
+  return (
+    partes[2] +
+    "/" +
+    partes[1] +
+    "/" +
+    partes[0]
+  );
+}
+
+
+function alternarContaPaga(id) {
+
+  const conta =
+    contas.find(
+      item => item.id === id
+    );
+
+  if (!conta) {
+    return;
+  }
+
+  conta.paga = !conta.paga;
+
+  salvarContas();
+
+  atualizarContas();
+}
+
+
+function atualizarContas() {
+
+  const lista =
+    document.getElementById("listaContas");
+
+  if (!lista) {
+    return;
+  }
+
+
+  const total =
+    contas.reduce(
+      (soma, conta) =>
+        soma + Number(conta.valor),
+      0
+    );
+
+
+  const pago =
+    contas
+      .filter(conta => conta.paga)
+      .reduce(
+        (soma, conta) =>
+          soma + Number(conta.valor),
+        0
+      );
+
+
+  const pendente =
+    total - pago;
+
+
+  document.getElementById(
+    "totalContas"
+  ).textContent =
+    formatarMoeda(total);
+
+
+  document.getElementById(
+    "totalPagoContas"
+  ).textContent =
+    formatarMoeda(pago);
+
+
+  document.getElementById(
+    "totalPendenteContas"
+  ).textContent =
+    formatarMoeda(pendente);
+
+
+  if (!contas.length) {
+
+    lista.innerHTML = `
+      <div class="meta-vazia">
+        <div>🧾</div>
+
+        <h3>
+          Nenhuma conta cadastrada
+        </h3>
+
+        <p>
+          Cadastre suas contas para acompanhar
+          vencimentos e pagamentos.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  lista.innerHTML =
+    contas.map(conta => {
+
+      return `
+        <div class="painel">
+
+          <div class="painel-titulo">
+
+            <div>
+
+              <h2>
+                ${conta.paga ? "✅" : "⏳"}
+                ${conta.nome}
+              </h2>
+
+              <p>
+                ${conta.categoria}
+                • vence em
+                ${formatarDataConta(conta.vencimento)}
+              </p>
+
+            </div>
+
+            <strong>
+              ${formatarMoeda(conta.valor)}
+            </strong>
+
+          </div>
+
+          <button
+            class="botao-link"
+            onclick="alternarContaPaga(${conta.id})"
+          >
+            ${conta.paga
+              ? "☑ Paga"
+              : "☐ Marcar como paga"}
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    atualizarContas();
+  }
+);
     
   </script>
